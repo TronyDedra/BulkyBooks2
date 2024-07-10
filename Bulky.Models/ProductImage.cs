@@ -18,3 +18,4 @@ namespace Bulky.Models
         public Product Product { get; set; }    
     }
 }
+    

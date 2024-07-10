@@ -66,8 +66,8 @@ namespace BulkyBooks2.Areas.Admin.Controllers
                 {
                     foreach (IFormFile file in files) {
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        string productPath = @"images\products\product-" + productVM.Product.Id;
-                        string finalPath = Path.Combine(wwwrootpath, @"images\product-");
+                        string productPath = @"images\products\product" + productVM.Product.Id;
+                        string finalPath = Path.Combine(wwwrootpath, productPath);
                         if(!Directory.Exists(finalPath))
                         {
                             Directory.CreateDirectory(finalPath);
@@ -91,32 +91,9 @@ namespace BulkyBooks2.Areas.Admin.Controllers
                     _unitOfWork.Product.Update(productVM.Product);
                     _unitOfWork.Save();
 
-                    //    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                    //    {
-                    //        file.CopyTo(fileStream);
-                    //    }
-                    //    productVM.Product.ImageUrl = @"\images\product\" + fileName;
-                    //    if (productVM.Product.Id == 0)
-                    //    {
-                    //        _unitOfWork.Product.Add(productVM.Product);
-                    //    }
-                    //    else
-                    //    {
-                    //        _unitOfWork.Product.Update(productVM.Product);
-                    //    }
-                    //if (string.IsNullOrEmpty(productVM.Product.ImageUrl))
-                    //{
-                    //    var oldImagePath =
-                    //        Path.Combine(wwwrootpath, productVM.Product.ImageUrl.TrimStart('\\'));
-                    //    if (System.IO.File.Exists(oldImagePath))
-                    //    {
-                    //        System.IO.File.Delete(oldImagePath);
-                    //    }
-                    //}
-
                 }
 
-                    _unitOfWork.Save();
+                   
                 TempData["success"] = "Product created/updated successfully!";
                 return RedirectToAction("Index");
             }
@@ -196,7 +173,7 @@ namespace BulkyBooks2.Areas.Admin.Controllers
             {
                 return Json(new {success = false, message ="Error while deleting"});
             }
-            string productPath = @"images\products\product-" + id;
+            string productPath = @"images\products\product" + id;
             string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, @"images\product");
             if (!Directory.Exists(finalPath))
             {
